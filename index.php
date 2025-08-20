@@ -25,13 +25,13 @@
                 <div class="col-md-4">
                     <!-- Formulário -->
                      <div class="card card-body">
-                        <form action="#" method="POST">
+                        <form action="save.php" method="POST">
                             <div class="form-group">
-                                <input type="text" name="titulo" class="form-control" 
+                                <input type="text" name="title" class="form-control" 
                                 placeholder="Task Title" autofocus >
                             </div>
                             <div class="form-group">
-                                <textarea name="descricao" rows="2" class="form-control"
+                                <textarea name="desciption" rows="2" class="form-control"
                                     placeholder="descricao da tarefa">
                                 </textarea>
                             </div>
