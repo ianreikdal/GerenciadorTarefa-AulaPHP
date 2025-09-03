@@ -63,12 +63,12 @@ try {
                 <div class="col-md-6 mx-auto">
                     <div class="card card-body">
                         <form action="update.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo $task ['id']; ?>">
+                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
                             <div class="form-group">
-                                <input type="text" name="title" class="form-control" value="<?php echo $task ['title']; ?>">
+                                <input type="text" name="title" class="form-control" value="<?php echo $task['title']; ?>">
                             </div>
                             <div class="form-group">
-                                <textarea name="description" rows="2" class="form-control"><?php echo $task ['description']; ?></textarea>
+                                <textarea name="description" rows="2" class="form-control"><?php echo $task['description']; ?></textarea>
                             </div>
                             <button class="btn btn-success btn-block" type="submit">Atualizar</button>
                             <a href="index.php" class="btn btn-secondary btn-block">Cancelar</a>
