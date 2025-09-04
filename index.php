@@ -2,11 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if(!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +17,10 @@ if (!isset($_SESSION['user_id'])) {
     <title>PHP CRUD MYSQL</title>
     <!-- BOOTSTRAP 4 -->
     <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
-    <!-- FONT AWESOEM -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -27,9 +28,9 @@ if (!isset($_SESSION['user_id'])) {
         <nav class="navbar navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="index.php">Crud PHP</a>
-                <form action="login.php" method="POST" class="d-line">
+                <form action="logout.php" method="POST" class="d-inline">
                     <button type="submit" class="btn btn-secondary">
-                        <i class="fas fa-sign-out-alt"></i>Logout
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
                 </form>
             </div>
@@ -70,7 +71,7 @@ if (!isset($_SESSION['user_id'])) {
                             <?php
                             require_once 'conn.php';
 
-                            $query = "SELECT id, title, description, created_at
+                            $query = "SELECT id, title, description, created_at 
                             FROM crud_php";
                             $result = $conn->query($query);
 
@@ -80,7 +81,7 @@ if (!isset($_SESSION['user_id'])) {
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['title']; ?></td>
-                                        <td><?= substr($row['description'], 0, 20) . "..." ?></td>
+                                        <td><?= substr($row['description'], 0, 20) . '...' ?></td>
                                         <td><?= date("d/m/Y", strtotime($row['created_at'])); ?></td>
                                         <td><a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-secondary">
                                                 <i class="fas fa-marker"></i>

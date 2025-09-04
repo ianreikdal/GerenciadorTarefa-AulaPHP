@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header('Location: login.php');
     exit();
 }
 
@@ -26,14 +26,14 @@ try {
                     header("Location: index.php");
                     exit();
                 } else {
-                    throw new Exception("Erro ao executar a atualização: " . $stmt);
+                    throw new Exception("Erro ao executar a atualização: " . $stmt->error);
                 }
                 $stmt->close();
             } else {
                 throw new Exception("Erro ao preparar a consulta: " . $conn->error);
             }
         } else {
-            throw new Exception("O campo 'Título' é obrigatório!");
+            throw new Exception("O campo 'Titulo' é obrigatório!");
         }
     } else {
         throw new Exception("Método de requisição inválido!");
