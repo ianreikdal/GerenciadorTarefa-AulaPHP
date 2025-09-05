@@ -3,10 +3,10 @@
 require_once 'conn.php';
 
 try {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = isset($_POST['email']) ? $_POST['email'] : null;
-        $password = isset($_POST['password']) ? $_POST['password'] : null;
-        $confirmPassword = isset($_POST['confirmPassword']) ? $_POST['confirmPassword'] : null;
+    if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+        $email = $_POST['email'] ?? null;
+        $password = $_POST['password'] ?? null;
+        $confirmPassword = $_POST['confirmPassword'] ?? null;
 
         if ($email && $password && $confirmPassword) {
             if ($password !== $confirmPassword) {
@@ -14,18 +14,21 @@ try {
             }
 
             if (!$conn || $conn->connect_error) {
-                throw new Exception("Erro na conexão com o banco de dados: " . $conn->connect_error);
+                throw new Exception("Conexão com banco de dados não está ativa.");
             }
 
             $hashedPassword = password_hash($password, PASSWORD_ARGON2I);
 
-            $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+            $sql = "INSERT INTO users (email, password) VALUES(?, ?)";
             $stmt = $conn->prepare($sql);
 
             if ($stmt) {
                 $stmt->bind_param("ss", $email, $hashedPassword);
 
                 if ($stmt->execute()) {
+                    session_start();
+                    $_SESSION['message'] = "Cadastro realizado com sucesso!";
+                    $_SESSION['message_type'] = "primary";
                     header("Location: login.php");
                     exit();
                 } else {
@@ -34,18 +37,18 @@ try {
 
                 $stmt->close();
             } else {
-                throw new Exception("Erro na preparação a consulta: " . $conn->error);
+                throw new Exception("Erro ao preparar a consulta: " . $conn->error);
             }
         } else {
-            throw new Exception("Email, senha e confirmação de senha são obrigatórios.");
+            throw new Exception("Email, senha e confirmação de senha são obrigatórios!");
         }
     } else {
-        throw new Exception("Método de requisição inválido.");
+        throw new Exception("Método de requisição inválido!");
     }
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage();
 } finally {
-    if (isset($conn) && $conn) {
+    if (isset($conn) && !$conn->connect_error) {
         $conn->close();
     }
 }

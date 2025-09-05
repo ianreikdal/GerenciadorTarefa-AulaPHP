@@ -13,8 +13,7 @@ try {
             $stmt = $conn->prepare($sql);
 
             if ($stmt) {
-                $stmt->bind_param("ss", $title, $description);
-
+                $stmt->bind_param("ss", $title, $description); 
                 if ($stmt->execute()) {
                     header("Location: index.php");
                     exit();

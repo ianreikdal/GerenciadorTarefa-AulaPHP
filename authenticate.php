@@ -21,26 +21,28 @@ try {
                         session_start();
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['email'] = $user['email'];
+                        $_SESSION['message'] = "Bem-vindo " . $user['email'];
+                        $_SESSION['message_type'] = "primary";
                         header("Location: index.php");
                         exit();
                     } else {
-                        throw new Exception(" Email ou senha invalidos!");
+                        throw new Exception("Email ou senha inválidos!");
                     }
                 } else {
-                    throw new Exception(" Email ou senha invalidos!");
+                    throw new Exception("Email ou senha inválidos!");
                 }
                 $stmt->close();
             } else {
-                throw new Exception("Erro na preparação a consulta: " . $conn->error);
+                throw new Exception("Erro ao preparar a consulta: " . $conn->error);
             }
         } else {
-            throw new Exception("Email e senha são obrigatórios.");
+            throw new Exception("Email e senha são obrigatórios!");
         }
     } else {
-        throw new Exception("Método de requisição inválido.");
+        throw new Exception("Método de requisição inválido!");
     }
 } catch (Exception $e) {
-    echo "Erro: " . $e->getMessage();
+    echo "Error: " . $e->getMessage();
 } finally {
     $conn->close();
 }
