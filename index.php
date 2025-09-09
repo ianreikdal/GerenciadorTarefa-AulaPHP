@@ -2,7 +2,7 @@
 
 session_start();
 
-if(!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
@@ -36,15 +36,17 @@ if(!isset($_SESSION['user_id'])) {
             </div>
         </nav>
         <!--Session Message-->
-        <?php if (isset($_SESSION['message_type'])): ?>
-            <div class="alert alert-<?= $_SESSION['message_type']; ?> alert-dismissible fade show" role="alert">
-            <?= $_SESSION['message'] ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <?php if (isset($_SESSION['message']) && isset($_SESSION['message_type'])): ?>
+            <div class="alert alert-<?= $_SESSION['message_type']; ?> alert-dismissible fade show"
+                role="alert">
+                <?= $_SESSION['message']; ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <?php unset($_SESSION ['message']) ?>
-            <?php endif; ?>
+        <?php unset($_SESSION['message']);
+            unset($_SESSION['message_type']);
+        endif ?>
         <!--/Session Message-->
         <main class="container p-4">
             <div class="row">
@@ -123,13 +125,12 @@ if(!isset($_SESSION['user_id'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script>
         // Timer para esconder a session 
-        setTimeout(() =>  { 
+        setTimeout(() => {
             const alert = document.querySelector('.alert');
-            if(alert){
+            if (alert) {
                 alert.style.display = 'none';
             }
         }, 1500);
-            
     </script>
 </body>
 
